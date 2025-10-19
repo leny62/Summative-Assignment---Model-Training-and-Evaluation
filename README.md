@@ -6,6 +6,7 @@ Repository: https://github.com/leny62/Summative-Assignment---Model-Training-and-
 
 Demo: https://drive.google.com/file/d/1ulNVW5szCyeDlHAY7DHGx2-FUrEI1MqJ/view?usp=sharing
 
+Report Link(Enhanced): https://docs.google.com/document/d/1BKojFqvMAYzn47SSoUutuhtheA28JbRD0gZ2Q0YQ9Ck/edit?usp=sharing
 ---
 
 ## Project Overview
@@ -19,6 +20,15 @@ Key points:
 - Approaches: Traditional ML (Logistic Regression, Decision Tree, Random Forest, Gradient Boosting, SVM) and Deep Learning (Sequential NN, Functional NN)
 - Key challenge: Class imbalance (~86.4% Not Good : ~13.6% Good)
 
+## Dataset
+
+The experiments use the Red Wine Quality dataset (Cortez et al., 2009). You can obtain the data from either source below:
+
+- Kaggle (mirror): https://www.kaggle.com/datasets/uciml/red-wine-quality-cortez-et-al-2009
+- UCI Machine Learning Repository: https://archive.ics.uci.edu/ml/datasets/wine+quality
+
+Download note: the notebook expects a CSV named `winequality-red.csv` in the working directory or you can update `DATA_PATH` in the notebook to point to your local copy.
+
 ---
 
 ## Repository Structure (recommended)
@@ -28,6 +38,18 @@ Key points:
 - `README.md` — This overview and run instructions
 - `saved_models/` — Directory to hold saved model artifacts (joblib and Keras models)
 - `roc_curves.png`, `learning_curves.png`, `confusion_matrix_best.png`, `feature_importance.png` — Suggested locations for exported figures
+- `saved_models/all_models/` — contains all trained model artifacts (baseline and deep models)
+	- Decision_Tree.joblib
+	- Functional_NN.keras
+	- Gradient_Boosting.joblib
+	- Logistic_Regression.joblib
+	- Random_Forest.joblib
+	- Sequential_NN.keras
+	- SVM.joblib
+
+- `saved_models/best_models/` — contains selected best models
+	- Random_Forest_Tuned.joblib
+	- Sequential_NN.keras
 
 ---
 
@@ -88,15 +110,15 @@ To load a joblib model:
 
 ```python
 import joblib
-model = joblib.load('saved_models/best_models/Random_Forest_Tuned.joblib')
-proba = model.predict_proba(X_new)[:,1]
+model = joblib.load(r'saved_models\best_models\Random_Forest_Tuned.joblib')
+proba = model.predict_proba(X_new)[:, 1]
 ```
 
 To load a Keras model:
 
 ```python
 from tensorflow import keras
-model = keras.models.load_model('saved_models/all_models/Sequential_NN.keras')
+model = keras.models.load_model(r'saved_models\all_models\Sequential_NN.keras')
 proba = model.predict(X_new_scaled).ravel()
 ```
 
